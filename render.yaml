@@ -1,0 +1,9 @@
+# Render Blueprint: один сервис раздаёт и клиент, и игровой сервер
+services:
+  - type: web
+    name: neon-snakes
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health

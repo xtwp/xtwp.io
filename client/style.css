@@ -1,0 +1,146 @@
+/* Тёмная неоновая тема в стиле Tron */
+:root {
+  --bg: #02030a;
+  --cyan: #19f3ff;
+  --magenta: #ff2bd6;
+  --text: #d8f8ff;
+  --panel: rgba(3, 8, 20, 0.82);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none; /* управление касанием без прокрутки страницы */
+}
+
+.hidden { display: none !important; }
+
+/* ---------- Оверлеи (меню / смерть) ---------- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 8, 0.45);
+  z-index: 10;
+}
+
+.panel {
+  width: min(380px, 90vw);
+  padding: 28px 26px;
+  text-align: center;
+  background: var(--panel);
+  border: 1px solid var(--cyan);
+  border-radius: 6px;
+}
+
+h1, h2 {
+  margin: 0 0 18px;
+  letter-spacing: 0.06em;
+  color: var(--cyan);
+}
+h1 { font-size: 38px; }
+h2 { font-size: 28px; color: var(--magenta); }
+
+input, button {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 17px;
+  color: var(--text);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid var(--cyan);
+  border-radius: 4px;
+  outline: none;
+}
+input:focus { outline: 1px solid var(--cyan); }
+
+button {
+  margin-top: 12px;
+  cursor: pointer;
+  color: #001014;
+  font-weight: 700;
+  background: var(--cyan);
+  transition: transform 0.1s;
+}
+button:hover:not(:disabled) { outline: 1px solid var(--cyan); }
+button:active:not(:disabled) { transform: scale(0.98); }
+button:focus-visible { outline: 2px solid var(--magenta); outline-offset: 2px; }
+button:disabled { opacity: 0.4; cursor: wait; }
+
+#status { margin: 14px 0 0; font-size: 14px; min-height: 20px; }
+#status.error { color: var(--magenta); }
+.hint { margin: 10px 0 0; font-size: 13px; opacity: 0.65; line-height: 1.4; }
+
+/* ---------- HUD ---------- */
+#hud {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 5;
+}
+#hud b { color: var(--cyan); }
+
+#leaderboard {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  width: 200px;
+  padding: 10px 12px;
+  font-size: 13px;
+  background: var(--panel);
+  border: 1px solid rgba(25, 243, 255, 0.5);
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 5;
+}
+#leaderboard h3 { margin: 0 0 6px; font-size: 14px; color: var(--cyan); }
+#lbList { margin: 0; padding-left: 20px; }
+#lbList li { display: flex; justify-content: space-between; gap: 8px; margin: 2px 0; }
+#lbList li span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#lbList li.me { color: var(--magenta); font-weight: 700; }
+#online { margin-top: 6px; font-size: 12px; opacity: 0.6; }
+
+/* Кнопка ускорения только для сенсорных экранов */
+#boostBtn {
+  position: fixed;
+  right: 18px;
+  bottom: 24px;
+  width: 96px;
+  height: 96px;
+  margin: 0;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 14px;
+  color: var(--text);
+  background: rgba(255, 43, 214, 0.25);
+  border: 2px solid var(--magenta);
+  z-index: 6;
+  touch-action: none;
+}
+@media (pointer: fine) { #boostBtn { display: none !important; } }
+
+@media (max-width: 600px) {
+  #leaderboard { width: 150px; font-size: 11px; }
+  h1 { font-size: 30px; }
+}
